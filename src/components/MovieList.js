@@ -1,6 +1,6 @@
 import React from 'react';
 
-const MovieList = ({ title, movies }) => {
+const MovieList = ({ title, movies, onAddBookmark }) => {
   return (
     <div className="movie-list">
       <h3>
@@ -19,7 +19,7 @@ const MovieList = ({ title, movies }) => {
               <div>{movie.name}</div>
               <div>Academy Awards: {movie.academyAwardWins}</div>
               <span>
-                <button>
+                <button onClick={() => onAddBookmark(movie._id)}>
                   <i className="fa fa-star"></i>
                 </button>
               </span>
