@@ -21,6 +21,31 @@ class Movies extends React.Component {
     this.setState({ movies: newMovies });
   };
 
+  addWatch = id => {
+    const wacthedMovies = this.state.movies.map(movie => {
+      if (movie._id === id) {
+        movie.watched = true;
+      }
+      return movie;
+    });
+    this.setState({ movies: wacthedMovies });
+  };
+
+  remove = (id, listType) => {
+    const removedMovies = this.state.movies.map(movie => {
+      if (movie._id === id) {
+        if (listType === 'Bookmarked') {
+          movie.bookmarked = false;
+        }
+        if (listType === 'Watched') {
+          movie.watched = false;
+        }
+      }
+      return movie;
+    });
+    this.setState({ movies: removedMovies });
+  };
+
   render() {
     const movies = this.state.movies;
     const rest = movies.filter(movie => !movie.watched && !movie.bookmarked);
@@ -37,13 +62,24 @@ class Movies extends React.Component {
           title="Movies"
           movies={rest}
           onAddBookmark={this.addBookmark}
+          onAddWatch={this.addWatch}
+          onRemove={this.remove}
         />
         <MovieList
           title="Watched"
           movies={watched}
           onAddBookmark={this.addBookmark}
+          onAddWatch={this.addWatch}
+          onRemove={this.remove}
+          typeList="Watched"
         />
-        <MovieList title="Bookmarked" movies={bookmarked} />
+        <MovieList
+          title="Bookmarked"
+          movies={bookmarked}
+          onAddWatch={this.addWatch}
+          onRemove={this.remove}
+          typeList="Bookmarked"
+        />
       </div>
     );
   }
