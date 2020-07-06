@@ -2,6 +2,10 @@ import React from 'react';
 import MovieList from '../components/MovieList';
 import { getMovies } from '../api/movies';
 
+const TYPE_TEXT_MOVIES = 'Movies';
+const TYPE_TEXT_WATCHED = 'Watched';
+const TYPE_TEXT_BOOKMARKED = 'Bookmarked';
+
 class Movies extends React.Component {
   state = { movies: [] };
 
@@ -31,13 +35,13 @@ class Movies extends React.Component {
     this.setState({ movies: wacthedMovies });
   };
 
-  remove = (id, listType) => {
+  remove = (id, title) => {
     const removedMovies = this.state.movies.map(movie => {
       if (movie._id === id) {
-        if (listType === 'Bookmarked') {
+        if (title === TYPE_TEXT_BOOKMARKED) {
           movie.bookmarked = false;
         }
-        if (listType === 'Watched') {
+        if (title === TYPE_TEXT_WATCHED) {
           movie.watched = false;
         }
       }
@@ -59,26 +63,25 @@ class Movies extends React.Component {
           <h2>notebook app / movies</h2>
         </div>
         <MovieList
-          title="Movies"
+          title={TYPE_TEXT_MOVIES}
           movies={rest}
           onAddBookmark={this.addBookmark}
           onAddWatch={this.addWatch}
           onRemove={this.remove}
         />
         <MovieList
-          title="Watched"
+          title={TYPE_TEXT_WATCHED}
           movies={watched}
           onAddBookmark={this.addBookmark}
           onAddWatch={this.addWatch}
           onRemove={this.remove}
-          typeList="Watched"
         />
         <MovieList
-          title="Bookmarked"
+          title={TYPE_TEXT_BOOKMARKED}
           movies={bookmarked}
+          onAddBookmark={this.addBookmark}
           onAddWatch={this.addWatch}
           onRemove={this.remove}
-          typeList="Bookmarked"
         />
       </div>
     );
