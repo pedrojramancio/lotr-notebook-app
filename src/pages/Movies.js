@@ -1,6 +1,6 @@
 import React from 'react';
 import MovieList from '../components/MovieList';
-import { getMovies } from '../api/movies';
+import { getMovies, patchMovie } from '../api/movies';
 
 const TYPE_TEXT_MOVIES = 'Movies';
 const TYPE_TEXT_WATCHED = 'Watched';
@@ -20,6 +20,11 @@ class Movies extends React.Component {
       if (movie._id === id) {
         movie.bookmarked = true;
       }
+      patchMovie({
+        id: movie._id,
+        bookmarked: movie.bookmarked,
+      }).then(console.log('addbookmark: ' + movie));
+
       return movie;
     });
     this.setState({ movies: newMovies });
@@ -30,6 +35,10 @@ class Movies extends React.Component {
       if (movie._id === id) {
         movie.watched = true;
       }
+      patchMovie({
+        id: movie._id,
+        watched: movie.watched,
+      }).then(console.log('addWatch: ' + movie));
       return movie;
     });
     this.setState({ movies: wacthedMovies });
@@ -45,6 +54,11 @@ class Movies extends React.Component {
           movie.watched = false;
         }
       }
+      patchMovie({
+        id: movie._id,
+        bookmarked: movie.bookmarked,
+        watched: movie.watched,
+      }).then(console.log('remove: ' + movie));
       return movie;
     });
     this.setState({ movies: removedMovies });

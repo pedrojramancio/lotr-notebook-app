@@ -11,6 +11,22 @@ export const getMovies = () => {
       return res.data;
     })
     .catch(err => {
-      console.log(err);
+      console.log(`Error at getMovies call: ${err}`);
+    });
+};
+
+export const patchMovie = ({ id, bookmarked, watched }) => {
+  console.log(`PATCH: ID: ${id} B: ${bookmarked} W: ${watched}`);
+  return axios
+    .patch(
+      `${urlBase}/movies/${id}`,
+      { bookmarked, watched },
+      { headers: headerApi }
+    )
+    .then(res => {
+      return res.data;
+    })
+    .catch(err => {
+      console.log(`Erros at patchMovies call: ${err}`);
     });
 };
