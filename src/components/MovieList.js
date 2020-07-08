@@ -1,13 +1,6 @@
 import React from 'react';
 
-const MovieList = ({
-  title,
-  movies,
-  onAddBookmark,
-  onAddWatch,
-  onRemove,
-  typeList,
-}) => {
+const MovieList = ({ title, movies, onAddBookmark, onAddWatch, onRemove }) => {
   return (
     <div className="movie-list">
       <h3>
@@ -36,7 +29,7 @@ const MovieList = ({
                 </button>
               </span>
               <span>
-                <button onClick={() => onRemove(movie._id, typeList)}>
+                <button onClick={() => onRemove(movie._id, title)}>
                   <i className="fa fa-times"></i>
                 </button>
               </span>
