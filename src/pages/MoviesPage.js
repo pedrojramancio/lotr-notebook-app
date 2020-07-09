@@ -1,12 +1,12 @@
 import React from 'react';
 import MovieList from '../components/MovieList';
-import { getMovies, patchMovie } from '../api/movies';
+import { getMovies, patchMovie } from '../api/moviesApi';
 
 const TYPE_TEXT_MOVIES = 'Movies';
 const TYPE_TEXT_WATCHED = 'Watched';
 const TYPE_TEXT_BOOKMARKED = 'Bookmarked';
 
-class Movies extends React.Component {
+class MoviesPage extends React.Component {
   state = { movies: [] };
 
   componentDidMount() {
@@ -66,9 +66,11 @@ class Movies extends React.Component {
 
   render() {
     const movies = this.state.movies;
-    const rest = movies.filter(movie => !movie.watched && !movie.bookmarked);
-    const watched = movies.filter(movie => movie.watched);
-    const bookmarked = movies.filter(movie => movie.bookmarked);
+    const leftMovies = movies.filter(
+      movie => !movie.watched && !movie.bookmarked
+    );
+    const watchedMovies = movies.filter(movie => movie.watched);
+    const bookmarkedMovies = movies.filter(movie => movie.bookmarked);
 
     return (
       <div>
@@ -78,21 +80,21 @@ class Movies extends React.Component {
         </div>
         <MovieList
           title={TYPE_TEXT_MOVIES}
-          movies={rest}
+          books={leftMovies}
           onAddBookmark={this.addBookmark}
           onAddWatch={this.addWatch}
           onRemove={this.remove}
         />
         <MovieList
           title={TYPE_TEXT_WATCHED}
-          movies={watched}
+          books={watchedMovies}
           onAddBookmark={this.addBookmark}
           onAddWatch={this.addWatch}
           onRemove={this.remove}
         />
         <MovieList
           title={TYPE_TEXT_BOOKMARKED}
-          movies={bookmarked}
+          books={bookmarkedMovies}
           onAddBookmark={this.addBookmark}
           onAddWatch={this.addWatch}
           onRemove={this.remove}
@@ -102,4 +104,4 @@ class Movies extends React.Component {
   }
 }
 
-export default Movies;
+export default MoviesPage;
