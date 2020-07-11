@@ -5,21 +5,19 @@ const SORT_BY = {
   ACADEMY_AWARDS: 'academyAwardWins',
 };
 
-const getSortedMovies = (movies, sortBy) => {
+const sortMovies = (movieA, movieB, sortBy) => {
   if (sortBy === SORT_BY.ACADEMY_AWARDS) {
-    return movies
-      .slice()
-      .sort((a, b) => b[SORT_BY.ACADEMY_AWARDS] - a[SORT_BY.ACADEMY_AWARDS]);
+    return movieB[SORT_BY.ACADEMY_AWARDS] - movieA[SORT_BY.ACADEMY_AWARDS];
   } else {
-    return movies
-      .slice()
-      .sort((a, b) => a[SORT_BY.NAME].localeCompare(b[SORT_BY.NAME]));
+    return movieA[SORT_BY.NAME].localeCompare(movieB[SORT_BY.NAME]);
   }
 };
 
-const MovieList = ({ title, movies, onAddBookmark, onAddWatch, onRemove }) => {
+const MovieList = ({ title, movies, onUpdateMovie }) => {
   const [sortBy, setSortBy] = useState(SORT_BY.ACADEMY_AWARDS);
-  const sortedMovies = getSortedMovies(movies, sortBy);
+  const sortedMovies = movies
+    .slice()
+    .sort((movieA, movieB) => sortMovies(movieA, movieB, sortBy));
 
   return (
     <div className="movie-list">
@@ -42,17 +40,29 @@ const MovieList = ({ title, movies, onAddBookmark, onAddWatch, onRemove }) => {
               <div>{movie.name}</div>
               <div>Academy Awards: {movie.academyAwardWins}</div>
               <span>
-                <button onClick={() => onAddBookmark(movie._id)}>
+                <button
+                  onClick={() => onUpdateMovie(movie._id, 'bookmarked', true)}
+                >
                   <i className="fa fa-star"></i>
                 </button>
               </span>
               <span>
-                <button onClick={() => onAddWatch(movie._id)}>
+                <button
+                  onClick={() => onUpdateMovie(movie._id, 'watched', true)}
+                >
                   <i className="fa fa-check"></i>
                 </button>
               </span>
               <span>
-                <button onClick={() => onRemove(movie._id, title)}>
+                <button
+                  onClick={() =>
+                    onUpdateMovie(
+                      movie._id,
+                      title === 'Bookmarked' ? 'bookmarked' : 'watched',
+                      false
+                    )
+                  }
+                >
                   <i className="fa fa-times"></i>
                 </button>
               </span>
