@@ -41,16 +41,25 @@ class MoviesPage extends Component {
           title={TYPE_TEXT_MOVIES}
           movies={leftMovies}
           onUpdateMovie={this.updateMovie}
+          showAddBookmark={true}
+          showAddWatched={true}
+          showRemove={false}
         />
         <MovieList
           title={TYPE_TEXT_BOOKMARKED}
           movies={bookmarkedMovies}
           onUpdateMovie={this.updateMovie}
+          showAddBookmark={false}
+          showAddWatched={true}
+          showRemove={true}
         />
         <MovieList
           title={TYPE_TEXT_WATCHED}
           movies={watchedMovies}
           onUpdateMovie={this.updateMovie}
+          showAddBookmark={true}
+          showAddWatched={false}
+          showRemove={true}
         />
       </div>
     );
