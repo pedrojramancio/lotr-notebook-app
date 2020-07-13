@@ -7,10 +7,13 @@ const headerApi = { Authorization: `Bearer ${tokenApi}` };
 export const getBooks = () => {
   return axios
     .get(`${urlBase}/books`, { headers: headerApi })
-    .then(res => {
-      return res.data;
-    })
-    .catch(err => {
-      console.log(`Error at getBooks call: ${err}`);
-    });
+    .then(res => res.data)
+    .catch(err => console.log(`Error at getBooks call: ${err}`));
+};
+
+export const getBookDetail = id => {
+  return axios
+    .get(`${urlBase}/books/${id}`, { headers: headerApi })
+    .then(res => res.data)
+    .catch(err => console.log(`Error at getBooksDetail call: ${err}`));
 };

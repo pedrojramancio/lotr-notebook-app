@@ -1,8 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
-import Home from '../pages/Home';
+import HomePage from '../pages/HomePage';
 import MoviesPage from '../pages/MoviesPage';
 import BooksPage from '../pages/BooksPage';
+import BookDetailPage from '../pages/BookDetailPage';
 
 const Menu = () => {
   return (
@@ -22,11 +23,15 @@ const Menu = () => {
         </ul>
         <Switch>
           <Route exact path="/">
-            <Home />
+            <HomePage />
           </Route>
           <Route path="/movies">
             <MoviesPage />
           </Route>
+          <Route path="/books/:id">
+            <BookDetailPage />
+          </Route>
+
           <Route path="/books">
             <BooksPage />
           </Route>
