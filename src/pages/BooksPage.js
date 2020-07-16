@@ -1,6 +1,7 @@
 import React from 'react';
 import BookList from '../components/BookList';
 import { getBooks } from '../api/booksApi';
+import PageContent from '../components/PageContent';
 
 const TYPE_TEXT_BOOKS = 'Books';
 
@@ -17,13 +18,11 @@ class BooksPage extends React.Component {
     const retiviedBooks = this.state.books;
 
     return (
-      <div>
-        <div className="page-title">
-          <h1>The Lord of The Rings</h1>
-          <h2>notebook app / books</h2>
+      <PageContent name="Books">
+        <div>
+          <BookList title={TYPE_TEXT_BOOKS} books={retiviedBooks} />
         </div>
-        <BookList title={TYPE_TEXT_BOOKS} books={retiviedBooks} />
-      </div>
+      </PageContent>
     );
   }
 }

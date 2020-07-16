@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import MovieList from '../components/MovieList';
-import { getMovies, patchMovie } from '../api/moviesApi';
+import { getMovies, patchMovie, voteMovie } from '../api/moviesApi';
+import PageContent from '../components/PageContent';
 
 const TYPE_TEXT_MOVIES = 'Movies';
 const TYPE_TEXT_WATCHED = 'Watched';
@@ -23,6 +24,15 @@ class MoviesPage extends Component {
     });
   };
 
+  voteMovie = (id, option) => {
+    voteMovie(id, option).then(movie => {
+      const votedMovies = this.state.movies.map(item =>
+        item._id === id ? movie : item
+      );
+      this.setState({ movies: votedMovies });
+    });
+  };
+
   render() {
     const allMovies = this.state.movies;
     const leftMovies = allMovies.filter(
@@ -32,36 +42,40 @@ class MoviesPage extends Component {
     const watchedMovies = allMovies.filter(movie => movie.watched);
 
     return (
-      <div>
-        <div className="page-title">
-          <h1>The Lord of The Rings</h1>
-          <h2>notebook app / movies</h2>
+      <PageContent name="Movies">
+        <div>
+          <MovieList
+            title={TYPE_TEXT_MOVIES}
+            movies={leftMovies}
+            onUpdateMovie={this.updateMovie}
+            showAddBookmark={true}
+            showAddWatched={true}
+            showRemove={false}
+            showVotation={true}
+            onVoteMovie={this.voteMovie}
+          />
+          <MovieList
+            title={TYPE_TEXT_BOOKMARKED}
+            movies={bookmarkedMovies}
+            onUpdateMovie={this.updateMovie}
+            showAddBookmark={false}
+            showAddWatched={true}
+            showRemove={true}
+            showVotation={true}
+            onVoteMovie={this.voteMovie}
+          />
+          <MovieList
+            title={TYPE_TEXT_WATCHED}
+            movies={watchedMovies}
+            onUpdateMovie={this.updateMovie}
+            showAddBookmark={true}
+            showAddWatched={false}
+            showRemove={true}
+            showVotation={true}
+            onVoteMovie={this.voteMovie}
+          />
         </div>
-        <MovieList
-          title={TYPE_TEXT_MOVIES}
-          movies={leftMovies}
-          onUpdateMovie={this.updateMovie}
-          showAddBookmark={true}
-          showAddWatched={true}
-          showRemove={false}
-        />
-        <MovieList
-          title={TYPE_TEXT_BOOKMARKED}
-          movies={bookmarkedMovies}
-          onUpdateMovie={this.updateMovie}
-          showAddBookmark={false}
-          showAddWatched={true}
-          showRemove={true}
-        />
-        <MovieList
-          title={TYPE_TEXT_WATCHED}
-          movies={watchedMovies}
-          onUpdateMovie={this.updateMovie}
-          showAddBookmark={true}
-          showAddWatched={false}
-          showRemove={true}
-        />
-      </div>
+      </PageContent>
     );
   }
 }

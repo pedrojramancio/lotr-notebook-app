@@ -29,3 +29,14 @@ export const patchMovie = ({ id, bookmarked, watched }) => {
       console.log(`Errors at patchMovies call: ${err}`);
     });
 };
+
+export const voteMovie = (id, option) => {
+  return axios
+    .post(`${urlBase}/movies/${id}/vote`, { option }, { headers: headerApi })
+    .then(res => {
+      return res.data;
+    })
+    .catch(err => {
+      console.log(`Errors at voteMovie call: ${err}`);
+    });
+};

@@ -27,7 +27,10 @@ class MovieList extends Component {
       showAddBookmark,
       showAddWatched,
       showRemove,
+      showVotation,
+      onVoteMovie,
     } = this.props;
+
     const sortedMovies = movies.slice().sort(sortBy.getSort);
 
     return (
@@ -53,6 +56,20 @@ class MovieList extends Component {
               <li className="movie-list-item" key={movie._id}>
                 <div>{movie.name}</div>
                 <div>Academy Awards: {movie.academyAwardWins}</div>
+                <div>
+                  Score: {movie.score}
+                  {showVotation && (
+                    <span>
+                      <button onClick={() => onVoteMovie(movie._id, 'up')}>
+                        <i className="fa fa-thumbs-up"></i>
+                      </button>
+                      <button onClick={() => onVoteMovie(movie._id, 'down')}>
+                        <i className="fa fa-thumbs-down"></i>
+                      </button>
+                    </span>
+                  )}
+                </div>
+
                 {showAddBookmark && (
                   <span>
                     <button

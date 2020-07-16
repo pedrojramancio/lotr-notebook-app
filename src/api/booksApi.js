@@ -1,19 +1,15 @@
-import axios from 'axios';
-
-const tokenApi = process.env.REACT_APP_AUTH_KEY;
-const urlBase = 'http://localhost:5000';
-const headerApi = { Authorization: `Bearer ${tokenApi}` };
+import instance from './config';
 
 export const getBooks = () => {
-  return axios
-    .get(`${urlBase}/books`, { headers: headerApi })
-    .then(res => res.data)
-    .catch(err => console.log(`Error at getBooks call: ${err}`));
+  return instance.get('books').then(res => res.data);
 };
 
 export const getBookDetail = id => {
-  return axios
-    .get(`${urlBase}/books/${id}`, { headers: headerApi })
-    .then(res => res.data)
-    .catch(err => console.log(`Error at getBooksDetail call: ${err}`));
+  return instance.get(`books/${id}`).then(res => res.data);
+};
+
+export const addBookReview = (bookId, { author, stars, text }) => {
+  return instance
+    .post(`books/${bookId}/reviews`, { author, stars, text })
+    .then(res => res.data);
 };

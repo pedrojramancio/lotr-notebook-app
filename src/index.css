@@ -20,12 +20,29 @@ div ~ div {
   margin: 10px 0;
 }
 
+input,
+textarea {
+  display: block;
+  margin: 5px 0;
+  padding: 5px;
+  border: 1px solid;
+  box-sizing: border-box;
+}
+
+textarea {
+  width: 100%;
+}
+
+button {
+  margin-right: 10px;
+}
+
 .app {
   padding: 0 20px;
 }
 
 .menu {
-  margin-bottom: 50px;
+  margin: 30px 0;
 }
 
 .menu-items {
@@ -43,15 +60,20 @@ div ~ div {
   margin-bottom: 50px;
 }
 
-.movie-list {
+.list {
   margin-top: 50px;
 }
 
-.movie-list-item {
+.list-item {
   margin: 10px 0;
   padding: 10px 0;
 }
 
-.sort-button {
-  margin-left: 10px;
+.review-form,
+.review-list {
+  margin-top: 30px;
+}
+
+.char-search-input {
+  width: 300px;
 }
