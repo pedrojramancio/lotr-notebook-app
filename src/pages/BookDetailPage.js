@@ -22,7 +22,9 @@ class BookDetailPage extends Component {
     this.setState({ showForm });
   };
 
-  addBookReview = () => {
+  submitReview = event => {
+    event.preventDefault();
+
     const { book, author, stars, reviewText } = this.state;
     console.log(book, author, stars, reviewText);
     addBookReview(book._id, { author, stars, text: reviewText });
@@ -50,16 +52,19 @@ class BookDetailPage extends Component {
       <PageContent name="Book Details">
         <div>
           <div className="page-title">
-            <h3>_id: {book._id}</h3>
-            <h3>name: {book.name}</h3>
-            <h3>Review Count: {book.reviews && book.reviews.length}</h3>
-            <div>
+            <h3>
+              _id: {book._id}
+              <br />
+              name: {book.name}
+              <br />
+              Review Count: {book.reviews && book.reviews.length}
               <button onClick={() => this.toggleShowForm()}>
-                <span>On/Off</span>
-                <i className="fa fa-toggle-on"></i>
+                <i className="fa fa-plus"></i>
               </button>
+            </h3>
+            <div>
               {showForm && (
-                <div name="formReview">
+                <form onSubmit={this.submitReview}>
                   <label>Autor: </label>
                   <input
                     type="text"
@@ -77,10 +82,10 @@ class BookDetailPage extends Component {
                     value={reviewText}
                     onChange={event => this.setReviewText(event.target.value)}
                   ></textarea>
-                  <button onClick={() => this.addBookReview()}>
+                  <button type="submit">
                     <i className="fa fa-check"></i>
                   </button>
-                </div>
+                </form>
               )}
             </div>
             {book.reviews && (
@@ -88,9 +93,21 @@ class BookDetailPage extends Component {
                 {book.reviews.map(review => {
                   return (
                     <li key={review._id}>
-                      <div>Autor: {review.autor}</div>
-                      <div>Stars: {review.stars}</div>
-                      <div>Review text: {review.text}</div>
+                      <div>
+                        Autor: {review.author}
+                        <br />
+                        Stars: {review.stars}
+                        <br />
+                        Review text: {review.text}
+                      </div>
+                      <div>
+                        <button>
+                          <i className="fa fa-pencil"></i>
+                        </button>
+                        <button>
+                          <i className="fa fa-trash"></i>
+                        </button>
+                      </div>
                     </li>
                   );
                 })}
