@@ -4,6 +4,7 @@ import HomePage from '../pages/HomePage';
 import MoviesPage from '../pages/MoviesPage';
 import BooksPage from '../pages/BooksPage';
 import BookDetailPage from '../pages/BookDetailPage';
+import CharactersPage from '../pages/CharactersPage';
 
 const Menu = () => {
   return (
@@ -19,6 +20,9 @@ const Menu = () => {
           </li>
           <li className="menu-item">
             <Link to="/books">Books</Link>
+          </li>
+          <li className="menu-item">
+            <Link to="/characters">Characters</Link>
           </li>
         </ul>
         <div className="page-title">
@@ -37,6 +41,10 @@ const Menu = () => {
           <Route path="/books">
             <BooksPage />
           </Route>
+          <Route path="/characters">
+            <CharactersPage />
+          </Route>
+          characters
         </Switch>
       </div>
     </Router>

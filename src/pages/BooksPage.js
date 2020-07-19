@@ -18,7 +18,7 @@ class BooksPage extends React.Component {
     const retiviedBooks = this.state.books;
 
     return (
-      <PageContent name="Books">
+      <PageContent name="{TYPE_TEXT_BOOKS}">
         <div>
           <BookList title={TYPE_TEXT_BOOKS} books={retiviedBooks} />
         </div>
