@@ -50,10 +50,10 @@ class MovieList extends Component {
             <i className="fa fa-sort-alpha-asc"></i>
           </button>
         </h3>
-        <ul>
+        <div>
           {sortedMovies.map(movie => {
             return (
-              <li className="movie-list-item" key={movie._id}>
+              <div className="movie-list-item" key={movie._id}>
                 <div>{movie.name}</div>
                 <div>Academy Awards: {movie.academyAwardWins}</div>
                 <div>
@@ -105,10 +105,10 @@ class MovieList extends Component {
                     </button>
                   </span>
                 )}
-              </li>
+              </div>
             );
           })}
-        </ul>
+        </div>
       </div>
     );
   }

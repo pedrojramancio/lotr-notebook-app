@@ -13,3 +13,15 @@ export const addBookReview = (bookId, { author, stars, text }) => {
     .post(`books/${bookId}/reviews`, { author, stars, text })
     .then(res => res.data);
 };
+
+export const updateBookReview = (bookId, reviewId, { author, stars, text }) => {
+  return instance
+    .put(`books/${bookId}/reviews/${reviewId}`, { author, stars, text })
+    .then(res => res.data);
+};
+
+export const removeBookReview = (bookId, reviewId) => {
+  return instance
+    .delete(`books/${bookId}/reviews/${reviewId}`)
+    .then(res => res.data);
+};

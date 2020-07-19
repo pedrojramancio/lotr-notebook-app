@@ -6,13 +6,11 @@ const PageContent = ({ name, children }) => {
 
   return (
     <div>
-      <div className="page-title">
-        <h3>The Lord of The Rings</h3>
-        <h4>
-          notebook app / {name}
-          <br />
-          pathname: {pathname}
-        </h4>
+      <div>
+        <strong>notebook app / {name}</strong>
+      </div>
+      <div>
+        <strong>pathname: {pathname}</strong>
       </div>
       {children}
     </div>

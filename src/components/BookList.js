@@ -11,13 +11,10 @@ const BookList = ({ title, books }) => {
         {books.map(book => {
           return (
             <li className="movie-list-item" key={book._id}>
-              <div>{book.name}</div>
-              <div>Review count: {book.reviews.length}</div>
               <Link to={'/books/' + book._id}>
-                <button className="sort-button">
-                  <i className="fa fa-newspaper-o"></i>
-                </button>
+                <div>{book.name}</div>
               </Link>
+              <div>Review count: {book.reviews.length}</div>
             </li>
           );
         })}

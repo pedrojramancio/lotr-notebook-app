@@ -21,6 +21,9 @@ const Menu = () => {
             <Link to="/books">Books</Link>
           </li>
         </ul>
+        <div className="page-title">
+          <h3>The Lord of The Rings</h3>
+        </div>
         <Switch>
           <Route exact path="/">
             <HomePage />
@@ -31,7 +34,6 @@ const Menu = () => {
           <Route path="/books/:id">
             <BookDetailPage />
           </Route>
-
           <Route path="/books">
             <BooksPage />
           </Route>
