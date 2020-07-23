@@ -11,7 +11,7 @@ const CharacterDeailPage = () => {
   useEffect(() => {
     getCharacterDetails(id)
       .then(char => setCharacter(char))
-      .finally(setLoaded(true));
+      .finally(() => setLoaded(true));
   }, [id]);
 
   return (
