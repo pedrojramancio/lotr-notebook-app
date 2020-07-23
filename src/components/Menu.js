@@ -5,6 +5,7 @@ import MoviesPage from '../pages/MoviesPage';
 import BooksPage from '../pages/BooksPage';
 import BookDetailPage from '../pages/BookDetailPage';
 import CharactersPage from '../pages/CharactersPage';
+import CharacterDetailPage from '../pages/CharacterDetailPage';
 
 const Menu = () => {
   return (
@@ -40,6 +41,9 @@ const Menu = () => {
           </Route>
           <Route path="/books">
             <BooksPage />
+          </Route>
+          <Route path="/character/:id">
+            <CharacterDetailPage />
           </Route>
           <Route path="/characters">
             <CharactersPage />

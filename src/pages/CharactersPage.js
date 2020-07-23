@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PageContent from '../components/PageContent';
 import { Debounce } from 'react-throttle';
 import { getCharactersName } from '../api/charactersApi';
+import { Link } from 'react-router-dom';
 
 const CharactersPage = () => {
   const [characters, setCharacters] = useState([]);
@@ -25,7 +26,9 @@ const CharactersPage = () => {
         <div>
           <ol>
             {characters.map(character => (
-              <li key={character._id}> {character.name}</li>
+              <Link to={'/character/' + character._id} key={character._id}>
+                <li> {character.name}</li>
+              </Link>
             ))}
           </ol>
         </div>
