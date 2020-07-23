@@ -1,30 +1,24 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import BookList from '../components/BookList';
 import { getBooks } from '../api/booksApi';
 import PageContent from '../components/PageContent';
 
-const TYPE_TEXT_BOOKS = 'Books';
+const BooksPage = () => {
+  const [books, setBooks] = useState([]);
 
-class BooksPage extends React.Component {
-  state = { books: [] };
-
-  componentDidMount() {
+  useEffect(() => {
     getBooks().then(data => {
-      this.setState({ books: data });
+      setBooks(data);
     });
-  }
+  }, []);
 
-  render() {
-    const retiviedBooks = this.state.books;
-
-    return (
-      <PageContent name="{TYPE_TEXT_BOOKS}">
-        <div>
-          <BookList title={TYPE_TEXT_BOOKS} books={retiviedBooks} />
-        </div>
-      </PageContent>
-    );
-  }
-}
+  return (
+    <PageContent name="Books">
+      <div>
+        <BookList title="Books" books={books} />
+      </div>
+    </PageContent>
+  );
+};
 
 export default BooksPage;

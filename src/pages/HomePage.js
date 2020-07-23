@@ -1,48 +1,42 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { getMovies, patchMovie } from '../api/moviesApi';
 import MovieList from '../components/MovieList';
-
 import { getBooks } from '../api/booksApi';
 import BookList from '../components/BookList';
 import PageContent from '../components/PageContent';
 
-class HomePage extends Component {
-  state = { movies: [], books: [] };
+const HomePage = () => {
+  const [bookmarkedMovies, setBookmarkedMovies] = useState([]);
+  const [books, setBooks] = useState([]);
 
-  componentDidMount() {
-    getMovies().then(data => this.setState({ movies: data }));
-    getBooks().then(data => {
-      this.setState({ books: data });
-    });
-  }
+  useEffect(() => {
+    getMovies().then(data =>
+      setBookmarkedMovies(data.filter(m => m.bookmarked))
+    );
+    getBooks().then(data => setBooks(data));
+  }, []);
 
-  updateMovie = (id, listType, value) => {
+  const updateMovie = (id, listType, value) => {
     const newMovie = { id, [listType]: value };
     patchMovie(newMovie).then(movie => {
       const newMovies = this.state.movies.map(item =>
         item._id === id ? movie : item
       );
-      this.setState({ movies: newMovies });
+      setBookmarkedMovies(newMovies);
     });
   };
-
-  render() {
-    const allMovies = this.state.movies;
-    const bookmarkedMovies = allMovies.filter(movie => movie.bookmarked);
-    const retiviedBooks = this.state.books;
-    return (
-      <PageContent name="Home">
-        <div>
-          <MovieList
-            title={'Bookmarked'}
-            movies={bookmarkedMovies}
-            onUpdateMovie={this.updateMovie}
-            showVotation={false}
-          />
-          <BookList title="Books" books={retiviedBooks} />
-        </div>
-      </PageContent>
-    );
-  }
-}
+  return (
+    <PageContent name="Home">
+      <div>
+        <MovieList
+          title={'Bookmarked'}
+          movies={bookmarkedMovies}
+          onUpdateMovie={updateMovie}
+          showVotation={false}
+        />
+        <BookList title="Books" books={books} />
+      </div>
+    </PageContent>
+  );
+};
 export default HomePage;

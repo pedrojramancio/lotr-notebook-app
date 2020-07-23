@@ -1,41 +1,37 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PageContent from '../components/PageContent';
 import { Debounce } from 'react-throttle';
 import { getCharactersName } from '../api/charactersApi';
 
-class CharactersPage extends React.Component {
-  state = { name: '', characters: [] };
+const CharactersPage = () => {
+  const [characters, setCharacters] = useState([]);
 
-  searchCharacters(name) {
-    console.log('Procurando por: ', name);
-    getCharactersName(name).then(characters => this.setState({ characters }));
-  }
+  const searchCharacters = name => {
+    getCharactersName(name).then(characters => setCharacters(characters));
+  };
 
-  render() {
-    const { characters } = this.state;
-    return (
-      <PageContent name="Characters">
+  return (
+    <PageContent name="Characters">
+      <div>
+        <label>Search for character's name:</label>
+        <Debounce time="400" handler="onChange">
+          <input
+            name="name"
+            type="text"
+            required={true}
+            onChange={event => searchCharacters(event.target.value)}
+          ></input>
+        </Debounce>
         <div>
-          <label>Search for character's name:</label>
-          <Debounce time="400" handler="onChange">
-            <input
-              name="name"
-              type="text"
-              required={true}
-              onChange={event => this.searchCharacters(event.target.value)}
-            ></input>
-          </Debounce>
-          <div>
-            <ol>
-              {characters.map(character => (
-                <li key={character._id}> {character.name}</li>
-              ))}
-            </ol>
-          </div>
+          <ol>
+            {characters.map(character => (
+              <li key={character._id}> {character.name}</li>
+            ))}
+          </ol>
         </div>
-      </PageContent>
-    );
-  }
-}
+      </div>
+    </PageContent>
+  );
+};
 
 export default CharactersPage;
