@@ -7,3 +7,9 @@ export const getCharactersName = name => {
 export const getCharacterDetails = id => {
   return instance.get(`characters/${id}`).then(res => res.data);
 };
+
+export const getCharactersPaginated = (page, limit) => {
+  return instance
+    .get(`characters?page=${page}&limit=${limit}`)
+    .then(res => res.data);
+};

@@ -4,6 +4,7 @@ import MovieList from '../components/MovieList';
 import { getBooks } from '../api/booksApi';
 import BookList from '../components/BookList';
 import PageContent from '../components/PageContent';
+import CharactersPaginatedList from '../components/CharactersPaginatedList';
 
 const HomePage = () => {
   const [bookmarkedMovies, setBookmarkedMovies] = useState([]);
@@ -27,15 +28,14 @@ const HomePage = () => {
   };
   return (
     <PageContent name="Home">
-      <div>
-        <MovieList
-          title={'Bookmarked'}
-          movies={bookmarkedMovies}
-          onUpdateMovie={updateMovie}
-          showVotation={false}
-        />
-        <BookList title="Books" books={books} />
-      </div>
+      <CharactersPaginatedList />
+      <MovieList
+        title={'Bookmarked'}
+        movies={bookmarkedMovies}
+        onUpdateMovie={updateMovie}
+        showVotation={false}
+      />
+      <BookList title="Books" books={books} />
     </PageContent>
   );
 };

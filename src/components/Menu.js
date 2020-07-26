@@ -11,7 +11,9 @@ const Menu = () => {
   return (
     <Router>
       <div className="menu">
-        <h3>Menu</h3>
+        <div>
+          <strong>Menu</strong>
+        </div>
         <ul className="menu-items">
           <li className="menu-item">
             <Link to="/">Home</Link>
@@ -27,7 +29,7 @@ const Menu = () => {
           </li>
         </ul>
         <div className="page-title">
-          <h3>The Lord of The Rings</h3>
+          <h2>The Lord of The Rings</h2>
         </div>
         <Switch>
           <Route exact path="/">
