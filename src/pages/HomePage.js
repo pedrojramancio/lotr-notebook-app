@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getMovies, patchMovie } from '../api/moviesApi';
+import { getMovies } from '../api/moviesApi';
 import MovieList from '../components/MovieList';
 import { getBooks } from '../api/booksApi';
 import BookList from '../components/BookList';
@@ -11,28 +11,21 @@ const HomePage = () => {
   const [books, setBooks] = useState([]);
 
   useEffect(() => {
-    getMovies().then(data =>
-      setBookmarkedMovies(data.filter(m => m.bookmarked))
-    );
+    getMovies().then(data => setBookmarkedMovies(data));
     getBooks().then(data => setBooks(data));
   }, []);
 
-  const updateMovie = (id, listType, value) => {
-    const newMovie = { id, [listType]: value };
-    patchMovie(newMovie).then(movie => {
-      const newMovies = this.state.movies.map(item =>
-        item._id === id ? movie : item
-      );
-      setBookmarkedMovies(newMovies);
-    });
-  };
   return (
     <PageContent name="Home">
       <CharactersPaginatedList />
       <MovieList
         title={'Bookmarked'}
         movies={bookmarkedMovies}
-        onUpdateMovie={updateMovie}
+        setMovies={setBookmarkedMovies}
+        filterBy={m => m.bookmarked}
+        showAddBookmark={false}
+        showAddWatched={false}
+        showRemove={false}
         showVotation={false}
       />
       <BookList title="Books" books={books} />

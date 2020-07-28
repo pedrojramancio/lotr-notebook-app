@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { patchMovie, voteMovie } from '../api/moviesApi';
 
 const SORT_BY = {
   NAME: {
@@ -9,19 +10,33 @@ const SORT_BY = {
   },
 };
 
-const MovieList = props => {
-  const {
-    title,
-    movies,
-    onUpdateMovie,
-    showAddBookmark,
-    showAddWatched,
-    showRemove,
-    showVotation,
-    onVoteMovie,
-  } = props;
+const MovieList = ({
+  title,
+  movies,
+  setMovies,
+  filterBy,
+  showAddBookmark = true,
+  showAddWatched = true,
+  showRemove = true,
+  showVotation = true,
+}) => {
   const [sortBy, setSortBy] = useState(SORT_BY.ACADEMY_AWARDS);
-  const sortedMovies = movies.slice().sort(sortBy.getSort);
+  const sortedMovies = movies.filter(filterBy).sort(sortBy.getSort);
+
+  const updateMovie = (id, listType, value) => {
+    const newMovie = { id, [listType]: value };
+    patchMovie(newMovie).then(movie => {
+      const newMovies = movies.map(item => (item._id === id ? movie : item));
+      setMovies(newMovies);
+    });
+  };
+
+  const vote = (id, option) => {
+    voteMovie(id, option).then(movie => {
+      const votedMovies = movies.map(item => (item._id === id ? movie : item));
+      setMovies(votedMovies);
+    });
+  };
 
   return (
     <div className="movie-list">
@@ -47,10 +62,10 @@ const MovieList = props => {
                 Score: {movie.score}
                 {showVotation && (
                   <span>
-                    <button onClick={() => onVoteMovie(movie._id, 'up')}>
+                    <button onClick={() => vote(movie._id, 'up')}>
                       <i className="fa fa-thumbs-up"></i>
                     </button>
-                    <button onClick={() => onVoteMovie(movie._id, 'down')}>
+                    <button onClick={() => vote(movie._id, 'down')}>
                       <i className="fa fa-thumbs-down"></i>
                     </button>
                   </span>
@@ -60,7 +75,7 @@ const MovieList = props => {
               {showAddBookmark && (
                 <span>
                   <button
-                    onClick={() => onUpdateMovie(movie._id, 'bookmarked', true)}
+                    onClick={() => updateMovie(movie._id, 'bookmarked', true)}
                   >
                     <i className="fa fa-star"></i>
                   </button>
@@ -69,7 +84,7 @@ const MovieList = props => {
               {showAddWatched && (
                 <span>
                   <button
-                    onClick={() => onUpdateMovie(movie._id, 'watched', true)}
+                    onClick={() => updateMovie(movie._id, 'watched', true)}
                   >
                     <i className="fa fa-check"></i>
                   </button>
@@ -79,7 +94,7 @@ const MovieList = props => {
                 <span>
                   <button
                     onClick={() =>
-                      onUpdateMovie(
+                      updateMovie(
                         movie._id,
                         title === 'Bookmarked' ? 'bookmarked' : 'watched',
                         false
