@@ -1,6 +1,5 @@
 import { getCharactersPaginated } from '../api/charactersApi';
 import React, { useEffect, useState } from 'react';
-import { Debounce } from 'react-throttle';
 
 const CharactersPaginatedList = () => {
   const [characters, setCharacters] = useState([]);
@@ -68,17 +67,26 @@ const CharactersPaginatedList = () => {
               </button>
             </td>
             <td>
-              <Debounce time="600" handler="onChange">
-                <input
-                  type="text"
-                  name="newlimit"
-                  value={limit}
-                  onChange={event =>
-                    handlePaginationChange(page, event.target.value)
-                  }
-                  size="5"
-                />
-              </Debounce>
+              <select
+                value={limit}
+                name="Limit"
+                onChange={event =>
+                  handlePaginationChange(page, event.target.value)
+                }
+              >
+                <option value="10" key="1">
+                  10
+                </option>
+                <option value="20" key="2">
+                  20
+                </option>
+                <option value="50" key="3">
+                  50
+                </option>
+                <option value="500" key="4">
+                  500
+                </option>
+              </select>
             </td>
             <td>
               <button
