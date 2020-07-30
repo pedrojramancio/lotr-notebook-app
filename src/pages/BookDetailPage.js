@@ -24,6 +24,7 @@ const BookDetailPage = () => {
     if (stars >= 1 && stars <= 5) {
       setStarsB(stars);
     }
+    return;
   };
 
   useEffect(() => {
@@ -86,7 +87,7 @@ const BookDetailPage = () => {
   const cleanForm = () => {
     setReviewId('');
     setAuthor('');
-    setStars(0);
+    setStarsB(0);
     setText('');
   };
 

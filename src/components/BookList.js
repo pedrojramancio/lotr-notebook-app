@@ -1,7 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
-const BookList = ({ title, books }) => {
+const BookList = ({ title = 'Books' }) => {
+  const books = useSelector(state => state.books);
+
   return (
     <div className="movie-list">
       <h3>

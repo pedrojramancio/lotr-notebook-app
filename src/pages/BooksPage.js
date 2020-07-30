@@ -1,21 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import BookList from '../components/BookList';
-import { getBooks } from '../api/booksApi';
 import PageContent from '../components/PageContent';
 
 const BooksPage = () => {
-  const [books, setBooks] = useState([]);
-
-  useEffect(() => {
-    getBooks().then(data => {
-      setBooks(data);
-    });
-  }, []);
-
   return (
     <PageContent name="Books">
       <div>
-        <BookList title="Books" books={books} />
+        <BookList />
       </div>
     </PageContent>
   );
