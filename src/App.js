@@ -1,14 +1,17 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import Menu from './components/Menu';
-import { getBooks } from './api/booksApi';
-import { loadBooks } from './actions/actionCreators';
+import * as booksAPI from './api/booksApi';
+import * as moviesAPI from './api/moviesApi';
+import { loadBooks } from './actionCreators/books';
+import { getMovies } from './actionCreators/movies';
 
 const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    getBooks().then(data => dispatch(loadBooks(data)));
+    booksAPI.getBooks().then(data => dispatch(loadBooks(data)));
+    moviesAPI.getMovies().then(data => dispatch(getMovies(data)));
   }, [dispatch]);
 
   return (

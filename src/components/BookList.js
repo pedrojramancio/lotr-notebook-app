@@ -2,8 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-const BookList = ({ title = 'Books' }) => {
+const BookList = ({ title = 'Books', filterBy = undefined }) => {
   const books = useSelector(state => state.books);
+  const filteredBooks = filterBy ? books.filter(filterBy) : books;
 
   return (
     <div className="movie-list">
@@ -11,8 +12,8 @@ const BookList = ({ title = 'Books' }) => {
         <span>{title}</span>
       </h3>
       <ul>
-        {Array.isArray(books) &&
-          books.map(book => {
+        {Array.isArray(filteredBooks) &&
+          filteredBooks.map(book => {
             return (
               <li className="movie-list-item" key={book._id}>
                 <Link to={'/books/' + book._id}>

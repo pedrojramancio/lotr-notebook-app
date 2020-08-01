@@ -1,4 +1,4 @@
-const { LOAD_BOOKS } = require('../actionCreators/actionCreators');
+const { LOAD_BOOKS } = require('../actionCreators/books');
 
 export default function books(state = [], action) {
   switch (action.type) {

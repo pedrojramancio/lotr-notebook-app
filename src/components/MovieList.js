@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { patchMovie, voteMovie } from '../api/moviesApi';
+import * as moviesAPI from '../api/moviesApi';
+import { useSelector, useDispatch } from 'react-redux';
+import { setMovies } from '../actionCreators/movies';
 
 const SORT_BY = {
   NAME: {
@@ -12,31 +14,26 @@ const SORT_BY = {
 
 const MovieList = ({
   title,
-  movies,
-  setMovies,
   filterBy,
   showAddBookmark = true,
   showAddWatched = true,
   showRemove = true,
   showVotation = true,
 }) => {
+  const dispatch = useDispatch();
+
   const [sortBy, setSortBy] = useState(SORT_BY.ACADEMY_AWARDS);
+
+  const movies = useSelector(state => state.movies);
   const sortedMovies = movies.filter(filterBy).sort(sortBy.getSort);
 
-  const updateMovie = (id, listType, value) => {
-    const newMovie = { id, [listType]: value };
-    patchMovie(newMovie).then(movie => {
-      const newMovies = movies.map(item => (item._id === id ? movie : item));
-      setMovies(newMovies);
-    });
-  };
+  const updateMovie = (id, listType, value) =>
+    moviesAPI
+      .patchMovie({ id, [listType]: value })
+      .then(movie => dispatch(setMovies(movie)));
 
-  const vote = (id, option) => {
-    voteMovie(id, option).then(movie => {
-      const votedMovies = movies.map(item => (item._id === id ? movie : item));
-      setMovies(votedMovies);
-    });
-  };
+  const vote = (id, option) =>
+    moviesAPI.voteMovie(id, option).then(movie => dispatch(setMovies(movie)));
 
   return (
     <div className="movie-list">
