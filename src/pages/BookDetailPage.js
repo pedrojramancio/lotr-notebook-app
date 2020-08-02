@@ -3,7 +3,7 @@ import { useParams } from 'react-router';
 import * as booksAPI from '../api/booksApi';
 import PageContent from '../components/PageContent';
 import { useDispatch } from 'react-redux';
-import { loadBooks } from '../actionCreators/BooksAction';
+import * as ReduxActions from '../actionCreators/BooksAction';
 import { useSelector } from 'react-redux';
 
 const BookDetailPage = () => {
@@ -48,7 +48,9 @@ const BookDetailPage = () => {
       booksAPI.addBookReview(bookId, { author, stars, text }).then(review => {
         newReviews = reviews.concat(review);
         setReviews(newReviews);
-        booksAPI.getBooks().then(data => dispatch(loadBooks(data)));
+        booksAPI
+          .getBooks()
+          .then(data => dispatch(ReduxActions.addReview(data, review)));
       });
     } else {
       booksAPI
@@ -63,7 +65,11 @@ const BookDetailPage = () => {
             return r;
           });
           setReviews(newReviews);
-          booksAPI.getBooks().then(data => dispatch(loadBooks(data)));
+          booksAPI
+            .getBooks()
+            .then(data =>
+              dispatch(ReduxActions.updateReview(data, updatedReview))
+            );
         });
     }
     toggleShowForm();
@@ -103,7 +109,7 @@ const BookDetailPage = () => {
       const filteredReviews = reviews.filter(r => r._id !== data.deleted);
       setReviews(filteredReviews);
     });
-    booksAPI.getBooks().then(data => dispatch(loadBooks(data)));
+    booksAPI.getBooks().then(data => dispatch(ReduxActions.loadBooks(data)));
   };
 
   return (
