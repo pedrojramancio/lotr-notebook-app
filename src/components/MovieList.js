@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import * as moviesAPI from '../api/moviesApi';
 import { useSelector, useDispatch } from 'react-redux';
-import { setMovies } from '../actionCreators/movies';
+import { setMovies } from '../actionCreators/MoviesAction';
 
 const SORT_BY = {
   NAME: {
@@ -24,7 +24,7 @@ const MovieList = ({
 
   const [sortBy, setSortBy] = useState(SORT_BY.ACADEMY_AWARDS);
 
-  const movies = useSelector(state => state.movies);
+  const movies = useSelector(state => state.MoviesReducer);
   const sortedMovies = movies.filter(filterBy).sort(sortBy.getSort);
 
   const updateMovie = (id, listType, value) =>

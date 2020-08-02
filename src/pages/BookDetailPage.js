@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
-import {
-  getBookDetail,
-  addBookReview,
-  updateBookReview,
-  removeBookReview,
-} from '../api/booksApi';
+import * as booksAPI from '../api/booksApi';
 import PageContent from '../components/PageContent';
+import { useDispatch } from 'react-redux';
+import { loadBooks } from '../actionCreators/BooksAction';
 
 const BookDetailPage = () => {
   const { id } = useParams();
@@ -18,6 +15,15 @@ const BookDetailPage = () => {
   const [author, setAuthor] = useState('');
   const [stars, setStarsB] = useState(0);
   const [text, setText] = useState('');
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    booksAPI.getBookDetail(id).then(book => {
+      setBookId(book._id);
+      setBookName(book.name);
+      setReviews(book.reviews);
+    });
+  }, [id]);
 
   const setStars = stars => {
     stars = parseInt(stars);
@@ -26,14 +32,6 @@ const BookDetailPage = () => {
     }
     return;
   };
-
-  useEffect(() => {
-    getBookDetail(id).then(book => {
-      setBookId(book._id);
-      setBookName(book.name);
-      setReviews(book.reviews);
-    });
-  }, [id]);
 
   const toggleShowForm = () => {
     setShowForm(!showForm);
@@ -44,13 +42,15 @@ const BookDetailPage = () => {
 
     let newReviews = [];
     if (!reviewId) {
-      addBookReview(bookId, { author, stars, text }).then(review => {
+      booksAPI.addBookReview(bookId, { author, stars, text }).then(review => {
         newReviews = reviews.concat(review);
         setReviews(newReviews);
+        booksAPI.getBooks().then(data => dispatch(loadBooks(data)));
       });
     } else {
-      updateBookReview(bookId, reviewId, { author, stars, text }).then(
-        updatedReview => {
+      booksAPI
+        .updateBookReview(bookId, reviewId, { author, stars, text })
+        .then(updatedReview => {
           newReviews = reviews.map(r => {
             if (r._id === updatedReview._id) {
               r.author = updatedReview.author;
@@ -60,8 +60,8 @@ const BookDetailPage = () => {
             return r;
           });
           setReviews(newReviews);
-        }
-      );
+          booksAPI.getBooks().then(data => dispatch(loadBooks(data)));
+        });
     }
     toggleShowForm();
     cleanForm();
@@ -91,15 +91,16 @@ const BookDetailPage = () => {
     setText('');
   };
 
-  const removeReview = (bookId, reviewId) => {
-    if (reviewId === this.reviewId) {
+  const removeReview = (bookId, reviewIdParam) => {
+    if (reviewIdParam === reviewId) {
       cleanForm();
       toggleShowForm();
     }
-    removeBookReview(bookId, reviewId).then(data => {
+    booksAPI.removeBookReview(bookId, reviewIdParam).then(data => {
       const filteredReviews = reviews.filter(r => r._id !== data.deleted);
       setReviews(filteredReviews);
     });
+    booksAPI.getBooks().then(data => dispatch(loadBooks(data)));
   };
 
   return (
@@ -150,6 +151,8 @@ const BookDetailPage = () => {
               return (
                 <li key={review._id}>
                   <div>
+                    _id: {review._id}
+                    <br />
                     Autor: {review.author}
                     <br />
                     Stars: {review.stars}

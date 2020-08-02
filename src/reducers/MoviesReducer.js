@@ -1,4 +1,4 @@
-const { GET_MOVIES, SET_MOVIES } = require('../actionCreators/movies');
+import { GET_MOVIES, SET_MOVIES } from '../actionCreators/MoviesAction';
 
 export default function movies(state = [], action) {
   switch (action.type) {

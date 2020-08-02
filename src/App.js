@@ -3,8 +3,8 @@ import { useDispatch } from 'react-redux';
 import Menu from './components/Menu';
 import * as booksAPI from './api/booksApi';
 import * as moviesAPI from './api/moviesApi';
-import { loadBooks } from './actionCreators/books';
-import { getMovies } from './actionCreators/movies';
+import { loadBooks } from './actionCreators/BooksAction';
+import { getMovies } from './actionCreators/MoviesAction';
 
 const App = () => {
   const dispatch = useDispatch();
