@@ -1,50 +1,43 @@
-import { getCharactersPaginated } from '../api/charactersApi';
+import * as CharacterAPI from '../api/charactersApi';
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { loadCharacters } from '../actionCreators/CharactersAction';
+
+export const INITIAL_PAGE = 0;
+export const DEFAULT_PAGE_LIMIT = 10;
 
 const CharactersPaginatedList = () => {
-  const [characters, setCharacters] = useState([]);
-  const [limit, setLimit] = useState(10);
-  const [page, setPage] = useState(0);
-  const [total, setTotal] = useState(0);
+  const dispatch = useDispatch();
+  const store = useSelector(state => state.CharactersReducer);
+  const characters = store.characters;
+  const limit = store.limit;
+  const page = store.page;
+  const total = store.total;
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    getCharactersPaginated(0, 10).then(p => {
-      setCharacters(p.data);
-      setLimit(p.limit);
-      setPage(p.page);
-      setTotal(p.total);
-      setLoading(false);
-    });
-  }, []);
+    setLoading(false);
+  }, [page, limit, dispatch]);
 
   function getPageAndSetVars(newPage, newlimit) {
-    getCharactersPaginated(newPage, newlimit).then(p => {
-      setCharacters(p.data);
-      setLimit(p.limit);
-      setPage(p.page);
-      setTotal(p.total);
+    CharacterAPI.getCharactersPaginated(newPage, newlimit).then(chars => {
+      dispatch(
+        loadCharacters(chars.data, chars.page, chars.total, chars.limit)
+      );
       setLoading(false);
     });
   }
 
   const handlePaginationChange = (newPage, newLimit) => {
-    const oldLimit = limit;
-    setLimit(newLimit);
-    console.log('nova Página: ', newPage);
-    console.log('novo limite: ', newLimit);
-    console.log('total / limit: ', total / limit);
     if (newPage < 0) {
       alert('Limite inferior da paginação atingido!');
-      setLimit(oldLimit);
       return;
     } else if (newPage >= total / limit) {
       alert('Limite superior da paginação atingido!');
-      setLimit(oldLimit);
       return;
     } else if (newLimit <= 0 || newLimit > 1000 || newLimit > total) {
       alert('Os limites da página vão de 1 a 1000, ou até o total de itens!');
-      setLimit(oldLimit);
       return;
     } else {
       setLoading(true);
@@ -99,14 +92,6 @@ const CharactersPaginatedList = () => {
           </tr>
         </tbody>
       </table>
-      <hr />
-      {characters && (
-        <ol>
-          {characters.map(char => (
-            <li key={char._id}>{char.name}</li>
-          ))}
-        </ol>
-      )}
       <div>
         <div>
           <label>page: </label>
@@ -117,6 +102,14 @@ const CharactersPaginatedList = () => {
           <span>{limit} </span>
         </div>
       </div>
+      <hr />
+      {characters && (
+        <ol>
+          {characters.map(char => (
+            <li key={char._id}>{char.name}</li>
+          ))}
+        </ol>
+      )}
     </>
   ) : (
     <div>Recuperando lista paginada de personagens</div>
