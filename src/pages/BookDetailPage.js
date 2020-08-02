@@ -4,6 +4,7 @@ import * as booksAPI from '../api/booksApi';
 import PageContent from '../components/PageContent';
 import { useDispatch } from 'react-redux';
 import { loadBooks } from '../actionCreators/BooksAction';
+import { useSelector } from 'react-redux';
 
 const BookDetailPage = () => {
   const { id } = useParams();
@@ -16,14 +17,16 @@ const BookDetailPage = () => {
   const [stars, setStarsB] = useState(0);
   const [text, setText] = useState('');
   const dispatch = useDispatch();
+  const books = useSelector(state => state.BooksReducer);
 
   useEffect(() => {
-    booksAPI.getBookDetail(id).then(book => {
-      setBookId(book._id);
-      setBookName(book.name);
-      setReviews(book.reviews);
-    });
-  }, [id]);
+    const currentBook = books.filter(book => book._id === id)[0];
+    if (currentBook) {
+      setBookId(currentBook._id);
+      setBookName(currentBook.name);
+      setReviews(currentBook.reviews);
+    }
+  }, [id, books]);
 
   const setStars = stars => {
     stars = parseInt(stars);
