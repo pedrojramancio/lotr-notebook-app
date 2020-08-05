@@ -10,7 +10,7 @@ const CharactersPaginatedList = () => {
   function getNewPage(newPage, newlimit) {
     CharacterAPI.getCharactersPaginated(newPage, newlimit).then(chars => {
       dispatch(
-        loadCharacters(chars.data, chars.page, chars.total, chars.limit, false)
+        loadCharacters(chars.data, chars.page, chars.total, chars.limit)
       );
     });
   }

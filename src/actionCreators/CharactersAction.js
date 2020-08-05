@@ -1,7 +1,13 @@
 export const LOAD_CHARACTERS = 'LOAD_CHARACTERS';
 export const SET_LOADING = 'SET_LOADING';
 
-export function loadCharacters(characters, page, total, limit, loading) {
+export function loadCharacters(
+  characters,
+  page,
+  total,
+  limit,
+  loading = false
+) {
   return { type: LOAD_CHARACTERS, characters, page, total, limit, loading };
 }
 
