@@ -4,12 +4,9 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { loadCharacters } from '../actionCreators/CharactersAction';
 
-export const INITIAL_PAGE = 0;
-export const DEFAULT_PAGE_LIMIT = 10;
-
 const CharactersPaginatedList = () => {
   const dispatch = useDispatch();
-  const store = useSelector(state => state.CharactersReducer);
+  const store = useSelector(state => state.CharacterState);
   const characters = store.characters;
   const limit = store.limit;
   const page = store.page;

@@ -7,10 +7,6 @@ import * as CharacterAPI from './api/charactersApi';
 import { loadBooks } from './actionCreators/BooksAction';
 import { getMovies } from './actionCreators/MoviesAction';
 import { loadCharacters } from './actionCreators/CharactersAction';
-import {
-  INITIAL_PAGE,
-  DEFAULT_PAGE_LIMIT,
-} from './components/CharactersPaginatedList';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -18,10 +14,7 @@ const App = () => {
   useEffect(() => {
     booksAPI.getBooks().then(data => dispatch(loadBooks(data)));
     moviesAPI.getMovies().then(data => dispatch(getMovies(data)));
-    CharacterAPI.getCharactersPaginated(
-      INITIAL_PAGE,
-      DEFAULT_PAGE_LIMIT
-    ).then(chars =>
+    CharacterAPI.getCharactersPaginated(0, 10).then(chars =>
       dispatch(loadCharacters(chars.data, chars.page, chars.total, chars.limit))
     );
   }, [dispatch]);

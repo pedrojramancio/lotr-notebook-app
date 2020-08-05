@@ -17,7 +17,7 @@ const BookDetailPage = () => {
   const [stars, setStarsB] = useState(0);
   const [text, setText] = useState('');
   const dispatch = useDispatch();
-  const books = useSelector(state => state.BooksReducer);
+  const books = useSelector(state => state.BookState);
 
   useEffect(() => {
     const currentBook = books.filter(book => book._id === id)[0];

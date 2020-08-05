@@ -24,7 +24,7 @@ const MovieList = ({
 
   const [sortBy, setSortBy] = useState(SORT_BY.ACADEMY_AWARDS);
 
-  const movies = useSelector(state => state.MoviesReducer);
+  const movies = useSelector(state => state.MovieState);
   const sortedMovies = movies.filter(filterBy).sort(sortBy.getSort);
 
   const updateMovie = (id, listType, value) =>

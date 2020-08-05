@@ -4,7 +4,7 @@ import MoviesReducer from './MoviesReducer';
 import CharactersReducer from './CharactersReducer';
 
 export default combineReducers({
-  BooksReducer,
-  MoviesReducer,
-  CharactersReducer,
+  BookState: BooksReducer,
+  MovieState: MoviesReducer,
+  CharacterState: CharactersReducer,
 });

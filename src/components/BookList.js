@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 const BookList = ({ title = 'Books', filterBy = undefined }) => {
-  const books = useSelector(state => state.BooksReducer);
+  const books = useSelector(state => state.BookState);
   const filteredBooks = filterBy ? books.filter(filterBy) : books;
 
   return (
