@@ -20,7 +20,7 @@ const BookDetailPage = () => {
   const books = useSelector(state => state.BookState);
 
   useEffect(() => {
-    const currentBook = books.filter(book => book._id === id)[0];
+    const currentBook = books.find(book => book._id === id);
     if (currentBook) {
       setBookId(currentBook._id);
       setBookName(currentBook.name);
