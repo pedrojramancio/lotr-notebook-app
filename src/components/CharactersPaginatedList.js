@@ -26,19 +26,25 @@ const CharactersPaginatedList = () => {
     });
   }
 
-  const handlePaginationChange = (newPage, newLimit) => {
+  const handlePageChange = newPage => {
     if (newPage < 0) {
       alert('Limite inferior da paginação atingido!');
       return;
     } else if (newPage >= total / limit) {
       alert('Limite superior da paginação atingido!');
       return;
-    } else if (newLimit <= 0 || newLimit > 1000 || newLimit > total) {
+    } else {
+      setLoading(true);
+      getPageAndSetVars(newPage, limit);
+    }
+  };
+  const handleLimitChange = newLimit => {
+    if (newLimit <= 0 || newLimit > 1000 || newLimit > total) {
       alert('Os limites da página vão de 1 a 1000, ou até o total de itens!');
       return;
     } else {
       setLoading(true);
-      getPageAndSetVars(newPage, newLimit);
+      getPageAndSetVars(page, newLimit);
     }
   };
 
@@ -49,9 +55,7 @@ const CharactersPaginatedList = () => {
         <tbody>
           <tr>
             <td>
-              <button
-                onClick={event => handlePaginationChange(page - 1, limit)}
-              >
+              <button onClick={event => handlePageChange(page - 1)}>
                 {' '}
                 &lt;&lt;{' '}
               </button>
@@ -60,9 +64,7 @@ const CharactersPaginatedList = () => {
               <select
                 value={limit}
                 name="Limit"
-                onChange={event =>
-                  handlePaginationChange(page, event.target.value)
-                }
+                onChange={event => handleLimitChange(event.target.value)}
               >
                 <option value="10" key="1">
                   10
@@ -79,9 +81,7 @@ const CharactersPaginatedList = () => {
               </select>
             </td>
             <td>
-              <button
-                onClick={event => handlePaginationChange(page + 1, limit)}
-              >
+              <button onClick={event => handlePageChange(page + 1)}>
                 {' '}
                 &gt;&gt;{' '}
               </button>
