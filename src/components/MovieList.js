@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import * as moviesAPI from '../api/moviesApi';
 import { useSelector, useDispatch } from 'react-redux';
-import { setMovies } from '../actionCreators/MoviesAction';
+import { updateMovie, voteMovie } from '../actionCreators/MoviesAction';
 
 const SORT_BY = {
   NAME: {
@@ -27,13 +26,17 @@ const MovieList = ({
   const movies = useSelector(state => state.MovieState);
   const sortedMovies = movies.filter(filterBy).sort(sortBy.getSort);
 
-  const updateMovie = (id, listType, value) =>
-    moviesAPI
-      .patchMovie({ id, [listType]: value })
-      .then(movie => dispatch(setMovies(movie)));
+  const update = (id, listType, value) => {
+    dispatch(updateMovie({ id, [listType]: value }));
+  };
 
-  const vote = (id, option) =>
-    moviesAPI.voteMovie(id, option).then(movie => dispatch(setMovies(movie)));
+  const remover = (nomeLista, id) => {
+    dispatch(updateMovie({ id, [nomeLista.toLowerCase()]: false }));
+  };
+
+  const vote = (id, option) => {
+    dispatch(voteMovie(id, option));
+  };
 
   return (
     <div className="movie-list">
@@ -71,33 +74,21 @@ const MovieList = ({
 
               {showAddBookmark && (
                 <span>
-                  <button
-                    onClick={() => updateMovie(movie._id, 'bookmarked', true)}
-                  >
+                  <button onClick={() => update(movie._id, 'bookmarked', true)}>
                     <i className="fa fa-star"></i>
                   </button>
                 </span>
               )}
               {showAddWatched && (
                 <span>
-                  <button
-                    onClick={() => updateMovie(movie._id, 'watched', true)}
-                  >
+                  <button onClick={() => update(movie._id, 'watched', true)}>
                     <i className="fa fa-check"></i>
                   </button>
                 </span>
               )}
               {showRemove && (
                 <span>
-                  <button
-                    onClick={() =>
-                      updateMovie(
-                        movie._id,
-                        title === 'Bookmarked' ? 'bookmarked' : 'watched',
-                        false
-                      )
-                    }
-                  >
+                  <button onClick={() => remover(title, movie._id)}>
                     <i className="fa fa-times"></i>
                   </button>
                 </span>

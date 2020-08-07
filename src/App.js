@@ -1,19 +1,17 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import Menu from './components/Menu';
-import * as booksAPI from './api/booksApi';
-import * as moviesAPI from './api/moviesApi';
 import * as CharacterAPI from './api/charactersApi';
-import { loadBooks } from './actionCreators/BooksAction';
-import { getMovies } from './actionCreators/MoviesAction';
+import { loadBooksThunk } from './actionCreators/BooksAction';
+import { getMoviesThunk } from './actionCreators/MoviesAction';
 import { loadCharacters } from './actionCreators/CharactersAction';
 
 const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    booksAPI.getBooks().then(data => dispatch(loadBooks(data)));
-    moviesAPI.getMovies().then(data => dispatch(getMovies(data)));
+    dispatch(loadBooksThunk());
+    dispatch(getMoviesThunk());
     CharacterAPI.getCharactersPaginated(0, 10).then(chars =>
       dispatch(loadCharacters(chars.data, chars.page, chars.total, chars.limit))
     );

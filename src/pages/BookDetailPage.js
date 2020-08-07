@@ -14,7 +14,7 @@ const BookDetailPage = () => {
   const [showForm, setShowForm] = useState(false);
   const [reviewId, setReviewId] = useState('');
   const [author, setAuthor] = useState('');
-  const [stars, setStarsB] = useState(0);
+  const [stars, setStars] = useState(0);
   const [text, setText] = useState('');
   const dispatch = useDispatch();
   const books = useSelector(state => state.BookState);
@@ -28,12 +28,16 @@ const BookDetailPage = () => {
     }
   }, [id, books]);
 
-  const setStars = stars => {
-    stars = parseInt(stars);
+  const handleChangeStars = event => {
+    const stars = parseInt(event.target.value);
     if (stars >= 1 && stars <= 5) {
-      setStarsB(stars);
+      setStars(stars);
     }
     return;
+  };
+
+  const handleChange = callback => event => {
+    callback(event.target.value);
   };
 
   const toggleShowForm = () => {
@@ -89,14 +93,14 @@ const BookDetailPage = () => {
     }
     setReviewId(reviewId);
     setAuthor(author);
-    setStars(stars);
+    handleChangeStars(stars);
     setText(text);
   };
 
   const cleanForm = () => {
     setReviewId('');
     setAuthor('');
-    setStarsB(0);
+    setStars(0);
     setText('');
   };
 
@@ -133,20 +137,20 @@ const BookDetailPage = () => {
                   required={true}
                   type="text"
                   value={author}
-                  onChange={event => setAuthor(event.target.value)}
+                  onChange={handleChange(setAuthor)}
                 ></input>
                 <label>Starts: </label>
                 <input
                   required={true}
                   type="number"
                   value={stars}
-                  onChange={event => setStars(event.target.value)}
+                  onChange={handleChangeStars}
                 ></input>
                 <label>Text: </label>
                 <textarea
                   required={true}
                   value={text}
-                  onChange={event => setText(event.target.value)}
+                  onChange={handleChange(setText)}
                 ></textarea>
                 <button type="submit">
                   <i className="fa fa-check"></i>
