@@ -4,7 +4,7 @@ export const LOAD_BOOKS = 'LOAD_BOOKS';
 export const UPDATE_REVIEW = 'UPDATE_REVIEW';
 export const ADD_REVIEW = 'ADD_REVIEW';
 
-export function loadBooks(books) {
+function loadBooks(books) {
   return { type: LOAD_BOOKS, books };
 }
 

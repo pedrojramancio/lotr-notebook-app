@@ -1,18 +1,16 @@
 import React from 'react';
-import * as CharacterAPI from '../api/charactersApi';
 import { useSelector, useDispatch } from 'react-redux';
-import { loadCharacters, setLoading } from '../actionCreators/CharactersAction';
+import {
+  loadCharactersThunk,
+  setLoading,
+} from '../actionCreators/CharactersAction';
 
 const CharactersPaginatedList = () => {
   const dispatch = useDispatch();
   const characterState = useSelector(state => state.CharacterState);
 
   function getNewPage(newPage, newlimit) {
-    CharacterAPI.getCharactersPaginated(newPage, newlimit).then(chars => {
-      dispatch(
-        loadCharacters(chars.data, chars.page, chars.total, chars.limit)
-      );
-    });
+    dispatch(loadCharactersThunk(newPage, newlimit));
   }
 
   const handlePageChange = newPage => {

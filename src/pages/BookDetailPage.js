@@ -113,7 +113,7 @@ const BookDetailPage = () => {
       const filteredReviews = reviews.filter(r => r._id !== data.deleted);
       setReviews(filteredReviews);
     });
-    booksAPI.getBooks().then(data => dispatch(ReduxActions.loadBooks(data)));
+    dispatch(ReduxActions.loadBooksThunk());
   };
 
   return (
