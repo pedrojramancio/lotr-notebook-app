@@ -1,24 +1,7 @@
-import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import Menu from './components/Menu';
-import { loadBooksThunk } from './actionCreators/BooksAction';
-import { getMoviesThunk } from './actionCreators/MoviesAction';
-import { loadCharactersThunk } from './actionCreators/CharactersAction';
+import React from 'react';
 
 const App = () => {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(loadBooksThunk());
-    dispatch(getMoviesThunk());
-    dispatch(loadCharactersThunk(0, 10));
-  }, [dispatch]);
-
-  return (
-    <div className="app">
-      <Menu />
-    </div>
-  );
+  return <div className="app"></div>;
 };
 
 export default App;
