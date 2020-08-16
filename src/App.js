@@ -1,12 +1,8 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
+import LOTRPage from './Structure/LOTRPage';
 
 const App = () => {
-  return (
-    <Button variant="contained" color="primary">
-      Hello, Material-UI World!
-    </Button>
-  );
+  return <LOTRPage />;
 };
 
 export default App;
