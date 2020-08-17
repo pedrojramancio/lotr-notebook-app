@@ -1,8 +1,14 @@
 import React from 'react';
-import LOTRPage from './Structure/LOTRPage';
+import HomePage from './pages/HomePage';
+import LOTRRouter from './config/LOTRRouter';
 
 const App = () => {
-  return <LOTRPage />;
+  return (
+    <>
+      <LOTRRouter />;
+      <HomePage />;
+    </>
+  );
 };
 
 export default App;
