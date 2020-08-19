@@ -1,4 +1,4 @@
-import instance from './config';
+import instance from '../api/config';
 
 export const getBooks = () => {
   return instance.get('books').then(res => res.data);

@@ -22,9 +22,15 @@ const LOTRPage = ({ children }) => {
         alignItems="center"
         spacing={3}
       >
-        <LOTRHeader />
-        <LOTRContent>children</LOTRContent>
-        <LOTRFooter />
+        <Grid item xs={12}>
+          <LOTRHeader />
+        </Grid>
+        <Grid item xs={12}>
+          <LOTRContent>{children}</LOTRContent>
+        </Grid>
+        <Grid item xs={12}>
+          <LOTRFooter />
+        </Grid>
       </Grid>
     </div>
   );

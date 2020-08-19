@@ -1,11 +1,11 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import HomePage from '../pages/HomePage';
-import MoviesPage from '../pages/MoviesPage';
-import BookDetailPage from '../pages/BookDetailPage';
-import BooksPage from '../pages/BooksPage';
-import CharacterDetailPage from '../pages/CharacterDetailPage';
-import CharactersPage from '../pages/CharactersPage';
+import HomePage from '../Home/HomePage';
+import MoviesPage from '../Movie/MoviesPage';
+import BookDetailPage from '../Book/BookDetailPage';
+import BooksPage from '../Book/BooksPage';
+import CharacterDetailPage from '../Characters/CharacterDetailPage';
+import CharactersPage from '../Characters/CharactersPage';
 
 const LOTRRouter = () => {
   return (

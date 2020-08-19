@@ -1,4 +1,4 @@
-import instance from './config';
+import instance from '../api/config';
 
 export const getCharactersName = name => {
   return instance.get(`characters/name/${name}`).then(res => res.data);
