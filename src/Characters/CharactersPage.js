@@ -59,9 +59,9 @@ const CharactersPage = () => {
           </TableHead>
           <TableBody>
             {characters.map(char => (
-              <TableRow key={char.name}>
+              <TableRow key={char._id}>
                 <TableCell component="th" scope="char">
-                  {char.name}
+                  {char.Name}
                 </TableCell>
                 <TableCell align="right">{char.race}</TableCell>
                 <TableCell align="right">{char.realm}</TableCell>

@@ -22,7 +22,7 @@ const LOTRHeader = () => {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static">
+      <AppBar position="relative">
         <Toolbar variant="dense">
           <Typography variant="h6" color="inherit" className={classes.title}>
             LOTR Note Book Application
