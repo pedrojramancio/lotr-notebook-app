@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import LOTRPage from '../Structure/LOTRPage';
+import LOTRPage from '../../Structure/LOTRPage';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -9,7 +9,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TablePagination from '@material-ui/core/TablePagination';
 import Paper from '@material-ui/core/Paper';
-import * as API from './charactersApi';
+import * as API from '../../api/charactersApi';
 
 const useStyles = makeStyles({
   table: {

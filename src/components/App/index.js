@@ -5,8 +5,8 @@ import HomePage from '../Home/';
 import MoviesPage from '../Movie';
 import BookDetailPage from '../BookDetail';
 import BooksPage from '../Book';
-import CharacterDetailPage from '../../Characters/CharacterDetailPage';
-import CharactersPage from '../../Characters/CharactersPage';
+import CharacterDetailPage from '../CharacterDetail';
+import CharactersPage from '../Characters';
 
 const App = () => {
   return (

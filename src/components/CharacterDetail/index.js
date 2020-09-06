@@ -1,5 +1,5 @@
 import React from 'react';
-import LOTRPage from '../Structure/LOTRPage';
+import LOTRPage from '../../Structure/LOTRPage';
 
 const CharacterDetailPage = () => {
   return (
