@@ -7,10 +7,10 @@ const LOTRPage = ({ children }) => {
   return (
     <Grid
       container
-      direction="row"
+      direction="column"
       justify="flex-start"
-      alignItems="center"
-      spacing={3}
+      alignItems="stretch"
+      spacing={1}
     >
       <Grid item xs={12}>
         <LOTRHeader />

@@ -12,6 +12,7 @@ import * as API from '../../api/booksApi';
 import Badge from '@material-ui/core/Badge';
 import Filter9PlusIcon from '@material-ui/icons/Filter9Plus';
 import { Link } from 'react-router-dom';
+import { Grid } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -47,52 +48,65 @@ const BooksPage = () => {
   const classes = useStyles();
   return (
     <LOTRPage>
-      {books &&
-        books.map(book => {
-          return (
-            <Card key={book._id} variant="outlined" className={classes.root}>
-              <CardContent>
-                <Typography
-                  className={classes.title}
-                  color="textSecondary"
-                  gutterBottom
-                >
-                  Book
-                  <Badge badgeContent={book.reviewCount} color="primary">
-                    <Filter9PlusIcon />
-                  </Badge>
-                </Typography>
+      <Grid
+        container
+        direction="row"
+        justify="flex-start"
+        alignItems="stretch"
+        spacing={1}
+      >
+        {books &&
+          books.map(book => {
+            return (
+              <Grid item key={book._id}>
+                <Card variant="outlined" className={classes.root}>
+                  <CardContent>
+                    <Typography
+                      className={classes.title}
+                      color="textSecondary"
+                      gutterBottom
+                    >
+                      Book
+                      <Badge badgeContent={book.reviewCount} color="primary">
+                        <Filter9PlusIcon />
+                      </Badge>
+                    </Typography>
 
-                <Typography variant="h5" component="h2">
-                  {book.name}
-                </Typography>
-                {book._id}
-                {book.reviewCount > 0 ? (
-                  <>
-                    <Typography className={classes.pos} color="textSecondary">
-                      1st Review
+                    <Typography variant="h5" component="h2">
+                      {book.name}
                     </Typography>
-                    {ringsCount(book.reviewCount)}
-                    <Typography variant="body2" component="p">
-                      {book.reviews[0].text}
-                    </Typography>
-                  </>
-                ) : (
-                  <Typography variant="body2" component="p">
-                    No riviews
-                  </Typography>
-                )}
-              </CardContent>
-              <CardActions>
-                <Link to={'/books/' + book._id}>
-                  <Button size="small" variant="contained">
-                    Update Reviews
-                  </Button>
-                </Link>
-              </CardActions>
-            </Card>
-          );
-        })}
+                    {book._id}
+                    {book.reviewCount > 0 ? (
+                      <>
+                        <Typography
+                          className={classes.pos}
+                          color="textSecondary"
+                        >
+                          1st Review
+                        </Typography>
+                        {ringsCount(book.reviewCount)}
+                        <Typography variant="body2" component="p">
+                          {book.reviews[0].text}
+                        </Typography>
+                      </>
+                    ) : (
+                      <Typography variant="body2" component="p">
+                        No riviews
+                      </Typography>
+                    )}
+                  </CardContent>
+                  <CardActions>
+                    <Link to={'/books/' + book._id}>
+                      <Button size="small" variant="contained">
+                        Update Reviews
+                      </Button>
+                    </Link>
+                  </CardActions>
+                </Card>
+              </Grid>
+            );
+          })}
+      </Grid>
     </LOTRPage>
   );
 };
