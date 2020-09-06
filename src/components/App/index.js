@@ -1,13 +1,14 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import HomePage from '../Home/HomePage';
-import MoviesPage from '../Movie/MoviesPage';
-import BookDetailPage from '../Book/BookDetailPage';
-import BooksPage from '../Book/BooksPage';
-import CharacterDetailPage from '../Characters/CharacterDetailPage';
-import CharactersPage from '../Characters/CharactersPage';
 
-const LOTRRouter = () => {
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import HomePage from '../../Home/HomePage';
+import MoviesPage from '../../Movie/MoviesPage';
+import BookDetailPage from '../BookDetail';
+import BooksPage from '../Book';
+import CharacterDetailPage from '../../Characters/CharacterDetailPage';
+import CharactersPage from '../../Characters/CharactersPage';
+
+const App = () => {
   return (
     <BrowserRouter>
       <Switch>
@@ -35,4 +36,4 @@ const LOTRRouter = () => {
   );
 };
 
-export default LOTRRouter;
+export default App;

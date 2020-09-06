@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
-import LOTRPage from '../Structure/LOTRPage';
+import LOTRPage from '../../Structure/LOTRPage';
 import MaterialTable from 'material-table';
-import * as API from './booksApi';
+import * as API from '../../api/booksApi';
 import Typography from '@material-ui/core/Typography';
 import Badge from '@material-ui/core/Badge';
 import MenuBookIcon from '@material-ui/icons/MenuBook';

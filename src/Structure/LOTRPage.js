@@ -1,6 +1,5 @@
 import React from 'react';
 import LOTRHeader from './LOTRHeader';
-import LOTRContent from './LOTRContent';
 import LOTRFooter from './LOTRFooter';
 import { Grid } from '@material-ui/core';
 
@@ -8,7 +7,7 @@ const LOTRPage = ({ children }) => {
   return (
     <Grid
       container
-      direction="column"
+      direction="row"
       justify="flex-start"
       alignItems="center"
       spacing={3}
@@ -17,7 +16,7 @@ const LOTRPage = ({ children }) => {
         <LOTRHeader />
       </Grid>
       <Grid item xs={12}>
-        <LOTRContent>{children}</LOTRContent>
+        {children}
       </Grid>
       <Grid item xs={12}>
         <LOTRFooter />
