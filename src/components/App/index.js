@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import HomePage from '../../Home/HomePage';
-import MoviesPage from '../../Movie/MoviesPage';
+import HomePage from '../Home/';
+import MoviesPage from '../Movie';
 import BookDetailPage from '../BookDetail';
 import BooksPage from '../Book';
 import CharacterDetailPage from '../../Characters/CharacterDetailPage';
