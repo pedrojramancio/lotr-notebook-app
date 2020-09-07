@@ -18,6 +18,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddIcon from '@material-ui/icons/Add';
+import EditIcon from '@material-ui/icons/Edit';
 import RingRate from '../Book/RingRate';
 import Typography from '@material-ui/core/Typography';
 
@@ -82,8 +83,11 @@ function EnhancedTableHead(props) {
             indeterminate={numSelected > 0 && numSelected < rowCount}
             checked={rowCount > 0 && numSelected === rowCount}
             onChange={onSelectAllClick}
-            inputProps={{ 'aria-label': 'select all desserts' }}
+            inputProps={{ 'aria-label': 'select all reviews' }}
           />
+        </TableCell>
+        <TableCell padding="checkbox">
+          <EditIcon />
         </TableCell>
         {headCells.map(headCell => (
           <TableCell
@@ -173,13 +177,19 @@ const EnhancedTableToolbar = props => {
 
       {numSelected > 0 ? (
         <Tooltip title="Delete">
-          <IconButton aria-label="delete">
+          <IconButton
+            aria-label="delete"
+            onClick={() => alert('Vou te apagar...')}
+          >
             <DeleteIcon />
           </IconButton>
         </Tooltip>
       ) : (
         <Tooltip title="Filter list">
-          <IconButton aria-label="filter list">
+          <IconButton
+            aria-label="filter list"
+            onClick={() => alert('Mais uma review.')}
+          >
             <AddIcon />
           </IconButton>
         </Tooltip>
@@ -293,18 +303,30 @@ const GreatTable = ({ rows }) => {
                   return (
                     <TableRow
                       hover
-                      onClick={event => handleClick(event, row._id)}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
                       key={row._id}
                       selected={isItemSelected}
                     >
-                      <TableCell padding="checkbox">
+                      <TableCell
+                        padding="checkbox"
+                        onClick={event => handleClick(event, row._id)}
+                      >
                         <Checkbox
                           checked={isItemSelected}
                           inputProps={{ 'aria-labelledby': labelId }}
                         />
+                      </TableCell>
+                      <TableCell padding="checkbox">
+                        <IconButton
+                          aria-label="filter list"
+                          onClick={() =>
+                            alert('Vamos editar a review: ' + row._id)
+                          }
+                        >
+                          <EditIcon />
+                        </IconButton>
                       </TableCell>
                       <TableCell
                         component="th"
