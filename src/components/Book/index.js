@@ -6,13 +6,13 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import LOTRPage from '../../Structure/LOTRPage';
-import PanoramaFishEyeTwoTone from '@material-ui/icons/PanoramaFishEyeTwoTone';
-import PanoramaFishEye from '@material-ui/icons/PanoramaFishEye';
+
 import * as API from '../../api/booksApi';
 import Badge from '@material-ui/core/Badge';
 import Filter9PlusIcon from '@material-ui/icons/Filter9Plus';
 import { Link } from 'react-router-dom';
 import { Grid } from '@material-ui/core';
+import RingRate from './RingRate';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -25,18 +25,6 @@ const useStyles = makeStyles(theme => ({
     marginBottom: 12,
   },
 }));
-
-const ringsCount = count => {
-  let rings = [];
-  let i = 0;
-  for (; i < count; i++) {
-    rings.push(<PanoramaFishEyeTwoTone />);
-  }
-  for (; i < 5; i++) {
-    rings.push(<PanoramaFishEye />);
-  }
-  return rings;
-};
 
 const BooksPage = () => {
   const [books, setBooks] = useState([]);
@@ -84,7 +72,8 @@ const BooksPage = () => {
                         >
                           1st Review
                         </Typography>
-                        {ringsCount(book.reviewCount)}
+                        <RingRate value={book.reviewCount} />
+
                         <Typography variant="body2" component="p">
                           {book.reviews[0].text}
                         </Typography>

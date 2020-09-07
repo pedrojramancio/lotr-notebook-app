@@ -25,6 +25,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddIcon from '@material-ui/icons/Add';
+import RingRate from '../Book/RingRate';
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -61,7 +62,7 @@ const headCells = [
   },
   { id: 'author', numeric: false, disablePadding: false, label: 'Author' },
   { id: 'text', numeric: false, disablePadding: false, label: 'Review' },
-  { id: 'stars', numeric: true, disablePadding: false, label: 'Stars' },
+  { id: 'stars', numeric: true, disablePadding: false, label: 'Rings' },
   { id: 'bookId', numeric: true, disablePadding: false, label: 'Book Id' },
 ];
 
@@ -340,7 +341,9 @@ const BookDetailPage = () => {
                         </TableCell>
                         <TableCell align="right">{row.author}</TableCell>
                         <TableCell align="right">{row.text}</TableCell>
-                        <TableCell align="right">{row.stars}</TableCell>
+                        <TableCell align="right">
+                          <RingRate value={row.stars} />
+                        </TableCell>
                         <TableCell align="right">{row.bookId}</TableCell>
                       </TableRow>
                     );
