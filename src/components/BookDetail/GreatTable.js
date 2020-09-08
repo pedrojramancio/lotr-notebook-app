@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -14,6 +14,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import RingRate from '../Book/RingRate';
 import EnhancedTableToolbar from './EnhancedTableToolbar';
 import EnhancedTableHead from './EnhancedTableHead';
+import ReviewForm from './ReviewForm';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -66,6 +67,9 @@ function stableSort(array, comparator) {
 }
 
 const GreatTable = ({ rows }) => {
+  const [currentReview, setCurrentReview] = useState({});
+  const [showForm, setShowForm] = useState(false);
+
   const classes = useStyles();
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('calories');
@@ -113,10 +117,17 @@ const GreatTable = ({ rows }) => {
 
   const isSelected = name => selected.indexOf(name) !== -1;
 
+  const toggleShowForm = () => {
+    setShowForm(!showForm);
+  };
+
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
-        <EnhancedTableToolbar numSelected={selected.length} />
+        <EnhancedTableToolbar
+          numSelected={selected.length}
+          toggleShowForm={toggleShowForm}
+        />
         <TableContainer>
           <Table
             className={classes.table}
@@ -188,6 +199,9 @@ const GreatTable = ({ rows }) => {
             </TableBody>
           </Table>
         </TableContainer>
+        {showForm && (
+          <ReviewForm currentReview toggleShowForm={toggleShowForm} />
+        )}
       </Paper>
       <FormControlLabel
         control={<Switch checked={dense} onChange={handleChangeDense} />}

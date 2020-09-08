@@ -32,7 +32,7 @@ const useToolbarStyles = makeStyles(theme => ({
 
 const EnhancedTableToolbar = props => {
   const classes = useToolbarStyles();
-  const { numSelected } = props;
+  const { numSelected, toggleShowForm } = props;
 
   return (
     <Toolbar
@@ -71,10 +71,7 @@ const EnhancedTableToolbar = props => {
         </Tooltip>
       ) : (
         <Tooltip title="Filter list">
-          <IconButton
-            aria-label="filter list"
-            onClick={() => alert('Mais uma review.')}
-          >
+          <IconButton aria-label="filter list" onClick={() => toggleShowForm()}>
             <AddIcon />
           </IconButton>
         </Tooltip>
