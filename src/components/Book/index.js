@@ -67,7 +67,7 @@ const BooksPage = () => {
                         >
                           1st Review
                         </Typography>
-                        <RingRate value={book.reviewCount} />
+                        <RingRate value={book.reviews[0].stars} />
 
                         <Typography variant="body2" component="p">
                           {book.reviews[0].text}
