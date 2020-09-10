@@ -128,6 +128,9 @@ const GreatTable = ({ rows }) => {
           numSelected={selected.length}
           toggleShowForm={toggleShowForm}
         />
+        {showForm && (
+          <ReviewForm currentReview toggleShowForm={toggleShowForm} />
+        )}
         <TableContainer>
           <Table
             className={classes.table}
@@ -199,9 +202,6 @@ const GreatTable = ({ rows }) => {
             </TableBody>
           </Table>
         </TableContainer>
-        {showForm && (
-          <ReviewForm currentReview toggleShowForm={toggleShowForm} />
-        )}
       </Paper>
       <FormControlLabel
         control={<Switch checked={dense} onChange={handleChangeDense} />}

@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -6,8 +7,6 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import LOTRPage from '../../Structure/LOTRPage';
-
-import * as API from '../../api/booksApi';
 import Badge from '@material-ui/core/Badge';
 import Filter9PlusIcon from '@material-ui/icons/Filter9Plus';
 import { Link } from 'react-router-dom';
@@ -27,11 +26,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const BooksPage = () => {
-  const [books, setBooks] = useState([]);
-
-  useEffect(() => {
-    API.getBooks().then(result => setBooks(result));
-  }, []);
+  const books = useSelector(state => state.BookState);
 
   const classes = useStyles();
   return (

@@ -61,7 +61,7 @@ const CharactersPage = () => {
             {characters.map(char => (
               <TableRow key={char._id}>
                 <TableCell component="th" scope="char">
-                  {char.Name}
+                  {char.name}
                 </TableCell>
                 <TableCell align="right">{char.race}</TableCell>
                 <TableCell align="right">{char.realm}</TableCell>
