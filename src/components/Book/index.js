@@ -26,7 +26,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const BooksPage = () => {
-  const books = useSelector(state => state.BookState);
+  const books = useSelector(state => state.BooksState);
 
   const classes = useStyles();
   return (

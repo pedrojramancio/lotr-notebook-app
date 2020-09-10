@@ -66,7 +66,7 @@ function stableSort(array, comparator) {
   return stabilizedThis.map(el => el[0]);
 }
 
-const GreatTable = ({ rows }) => {
+const GreatTable = ({ bookId, rows }) => {
   const [currentReview, setCurrentReview] = useState({});
   const [showForm, setShowForm] = useState(false);
 
@@ -75,6 +75,14 @@ const GreatTable = ({ rows }) => {
   const [orderBy, setOrderBy] = React.useState('calories');
   const [selected, setSelected] = React.useState([]);
   const [dense, setDense] = React.useState(false);
+
+  const blankReview = {
+    _id: '',
+    author: '',
+    stars: 0,
+    text: '',
+    bookId,
+  };
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -129,8 +137,12 @@ const GreatTable = ({ rows }) => {
           toggleShowForm={toggleShowForm}
         />
         {showForm && (
-          <ReviewForm currentReview toggleShowForm={toggleShowForm} />
+          <ReviewForm
+            currentReview={blankReview}
+            toggleShowForm={toggleShowForm}
+          />
         )}
+
         <TableContainer>
           <Table
             className={classes.table}

@@ -28,7 +28,7 @@ const BookDetailPage = () => {
         </Badge>
         {book.name}
       </Typography>
-      <GreatTable rows={rows} />
+      <GreatTable bookId={id} rows={rows} />
     </LOTRPage>
   );
 };
